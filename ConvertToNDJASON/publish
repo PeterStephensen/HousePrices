@@ -1,0 +1,6 @@
+#!/bin/bash
+
+module load tools
+module load dotnet-core/SDK-8.0.3
+
+dotnet publish
