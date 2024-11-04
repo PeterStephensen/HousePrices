@@ -80,10 +80,6 @@ namespace ConvertToNDJASON
         int nCurlyBrackets = 0;
         string txt = "";
 
-        bool data_ejerskab_med_stamoplysninger = false;
-        if (inFileName.Contains("stamopl"))
-          data_ejerskab_med_stamoplysninger = true;
-
         FileStream fs = new FileStream(Path.GetFileNameWithoutExtension(inFileName) + ".ndjson", FileMode.Create);
         outFile2 = new StreamWriter(fs, Encoding.UTF8, 512);
 
@@ -102,13 +98,16 @@ namespace ConvertToNDJASON
             }
           }
 
-          if (nFeatureCollection > 0 && !line.Contains("administratoroplysninger") && !line.Contains("ejendeVirksomhed") && !line.Contains("ejendePerson") && !line.Contains("ejeroplysninger"))
+          if (nFeatureCollection >)
           {
             if (line.Contains('{'))
             {
               nCurlyBrackets += line.Count(t => t == '{');
 
               txt += line;
+
+              if (line.Contains('}'))
+                nCurlyBrackets -= line.Count(t => t == '}');
             }
             else if (line.Contains('}'))
             {
